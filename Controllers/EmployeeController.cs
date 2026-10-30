@@ -27,7 +27,7 @@ namespace EmployeeManagemantDotnetV1.Controllers
         public IActionResult GetEmployeeById(int id)
         {
             var employee = _employeeDbContext.Employees.Find(id);
-            if(employee != null)
+            if (employee != null)
             {
                 return Ok(employee);
             }
@@ -43,7 +43,7 @@ namespace EmployeeManagemantDotnetV1.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveEmployee( Employee employee)
+        public IActionResult SaveEmployee(Employee employee)
         {
             _employeeDbContext.Employees.Add(employee);
             _employeeDbContext.SaveChanges();
@@ -51,9 +51,9 @@ namespace EmployeeManagemantDotnetV1.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateEmployee(Employee employee) 
+        public IActionResult UpdateEmployee(Employee employee)
         {
-            var record = _employeeDbContext.Employees.Find( employee.EmployeeId );
+            var record = _employeeDbContext.Employees.Find(employee.EmployeeId);
             if (record == null)
             {
                 var notFoundResponse = new
@@ -83,7 +83,7 @@ namespace EmployeeManagemantDotnetV1.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteEmployee(int id) 
         {
             var record = _employeeDbContext.Employees.Find(id);
