@@ -157,6 +157,7 @@ namespace EmployeeManagemantDotnetV1.Services
                 Encoding.UTF8,
                 "application/json");
 
+
             using var response = await _httpClient.SendAsync(request);
 
             var responseContent =

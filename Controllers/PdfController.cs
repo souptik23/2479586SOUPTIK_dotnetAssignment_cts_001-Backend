@@ -37,7 +37,6 @@ namespace EmployeeManagemantDotnetV1.Controllers
                 return BadRequest("Only PDF files are supported.");
             }
 
-            // Limit uploads to 10 MB.
             if (file.Length > 10 * 1024 * 1024)
             {
                 return BadRequest("The PDF must be 10 MB or smaller.");
@@ -54,7 +53,7 @@ namespace EmployeeManagemantDotnetV1.Controllers
                     await file.CopyToAsync(stream);
                 }
 
-                // Step 1: Extract text from the PDF.
+                
                 var resumeText =
                     await _documentTextExtractor.ExtractTextAsync(
                         tempFilePath);
@@ -65,13 +64,9 @@ namespace EmployeeManagemantDotnetV1.Controllers
                         "No readable text was found in the PDF.");
                 }
 
-                // Step 2: Send the text to the LLM.
                 var employee =
                     await _resumeAiService.ExtractEmployeeDetailsAsync(
                         resumeText);
-
-                // Step 3: Return the extracted fields to Angular.
-                // No employee is saved to the database here.
                 return Ok(employee);
             }
             finally
